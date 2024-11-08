@@ -41,20 +41,4 @@ void main() {
     // assert
     expect(result, tLoginInfoModel);
   });
-
-  test('should return a model from entity', () {
-    // act
-    final result = LoginInfoModel.fromEntity(tLoginInfo);
-
-    // assert
-    expect(result, tLoginInfoModel);
-  });
-
-  test('should return an entity from model', () {
-    // act
-    final result = tLoginInfoModel.toEntity();
-
-    // assert
-    expect(result, tLoginInfo);
-  });
 }

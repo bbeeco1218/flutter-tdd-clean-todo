@@ -130,5 +130,17 @@ void main() {
         (user) => null,
       );
     });
+
+    test('should return failure when login throws exception', () async {
+      // Arrange
+      when(() => mockAuthRemoteDataSource.login(tLoginInfoModel))
+          .thenThrow(Exception());
+
+      // Act
+      final result = await authRepositoryImpl.login(tLoginInfo);
+
+      // Assert
+      expect(result, Left(ServerFailure()));
+    });
   });
 }

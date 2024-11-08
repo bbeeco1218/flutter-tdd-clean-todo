@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:tdd_clean_flutter_todo/core/error/failure.dart';
 import 'package:tdd_clean_flutter_todo/data/datasources/auth/auth_local_data_source.dart';
 import 'package:tdd_clean_flutter_todo/data/datasources/auth/auth_remote_data_source.dart';
-import 'package:tdd_clean_flutter_todo/data/models/login_info_model.dart';
+import 'package:tdd_clean_flutter_todo/data/translator/login_info_translator.dart';
+import 'package:tdd_clean_flutter_todo/data/translator/user_translator.dart';
 import 'package:tdd_clean_flutter_todo/domain/entities/login_info.dart';
 import 'package:tdd_clean_flutter_todo/domain/entities/user.dart';
 import 'package:tdd_clean_flutter_todo/domain/repositories/auth_repository.dart';
@@ -34,19 +35,21 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<bool> saveLoginInfo(LoginInfo loginInfo) async {
-    return await localDataSource
-        .saveLoginInfo(LoginInfoModel.fromEntity(loginInfo));
+    return await localDataSource.saveLoginInfo(loginInfo.toModel());
   }
 
   @override
   Future<Either<Failure, User>> login(LoginInfo loginInfo) async {
-    final result =
-        await remoteDataSource.login(LoginInfoModel.fromEntity(loginInfo));
+    try {
+      final result = await remoteDataSource.login(loginInfo.toModel());
 
-    if (result == null) {
-      return Left(NotFoundFailure('User not found'));
+      if (result == null) {
+        return Left(NotFoundFailure('User not found'));
+      }
+
+      return Right(result.toEntity());
+    } catch (e) {
+      return Left(ServerFailure());
     }
-
-    return Right(result.toEntity());
   }
 }

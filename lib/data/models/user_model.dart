@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:tdd_clean_flutter_todo/domain/entities/user.dart';
 
 class UserModel extends Equatable {
   final String idx;
@@ -22,18 +21,6 @@ class UserModel extends Equatable {
         idx: json['idx'] as String,
         name: json['name'] as String,
         email: json['email'] as String,
-      );
-
-  factory UserModel.fromEntity(User user) => UserModel(
-        idx: user.idx,
-        name: user.name,
-        email: user.email,
-      );
-
-  User toEntity() => User(
-        idx: idx,
-        name: name,
-        email: email,
       );
 
   @override

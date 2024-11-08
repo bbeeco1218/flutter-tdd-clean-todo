@@ -56,26 +56,4 @@ void main() {
       expect(result, tUserModel);
     },
   );
-
-  test(
-    'should return a model from entity',
-    () async {
-      // act
-      final result = UserModel.fromEntity(tUser);
-
-      // assert
-      expect(result, tUserModel);
-    },
-  );
-
-  test(
-    'should return an entity from model',
-    () async {
-      // act
-      final result = tUserModel.toEntity();
-
-      // assert
-      expect(result, tUser);
-    },
-  );
 }

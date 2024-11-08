@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:tdd_clean_flutter_todo/domain/entities/login_info.dart';
 
 class LoginInfoModel extends Equatable {
   const LoginInfoModel({
@@ -18,16 +17,6 @@ class LoginInfoModel extends Equatable {
   factory LoginInfoModel.fromJson(Map<String, dynamic> json) => LoginInfoModel(
         id: json['id'] as String,
         password: json['password'] as String,
-      );
-
-  factory LoginInfoModel.fromEntity(LoginInfo loginInfo) => LoginInfoModel(
-        id: loginInfo.id,
-        password: loginInfo.password,
-      );
-
-  LoginInfo toEntity() => LoginInfo(
-        id: id,
-        password: password,
       );
 
   @override
